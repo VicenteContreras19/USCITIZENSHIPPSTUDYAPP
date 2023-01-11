@@ -54,18 +54,24 @@ const authControllers ={
 
     LogIn: (req,res)=>{
         const {email,password} = req.body
+        if(!email || !password)
+        return res.status(400).json({err:"Invalid form"});
+        if(!validator.isEmail(email))
+        return res.status(400).json({err:"Invalid email"})
+
+        user.findOne({email}).then(user =>{
+            if(!user) return res.status(400).json({
+                err: "Email not registered"});
+
+        bcrypt.compare(password,user.password)
+        .then(isMatch => {
+            if(!isMatch)
+                return res.sendStatus(401)
+        })
+        })
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+export default authControllers

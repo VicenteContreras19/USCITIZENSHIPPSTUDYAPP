@@ -29,6 +29,11 @@ app.set('views' ,'src/views')
 
 //routes
 app.use('/', publicRoutes), 
+app.use('/signIn', publicRoutes), 
+app.use('/register', publicRoutes), 
+app.use('/about', publicRoutes), 
+app.use('/curriculum', publicRoutes), 
+
 
 
 
