@@ -8,5 +8,9 @@ router.get('/dashboard',  (req, res) => {
 res.render('protected/dashboard')
 })
 
+router.get('/lessons',  (req, res) => {
+    res.render('protected/lessons')
+    })
+
 
 export default router

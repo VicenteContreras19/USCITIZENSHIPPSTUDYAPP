@@ -32,7 +32,7 @@ passport.use(new LocalStrategy({usernameField: 'email'}, (email, password, done)
         bcrypt.compare(password, user.password).then(isMatch=>{
             if(!isMatch) return done(new Error('Invalid credentials'), user)
             done(null, user, {message: 'Thank you for signing in'})
-            console.log('Welcome to the mf club doggy we got royal D\'Useé VSOP over there, fresh R&J\'s and the bitches on they way')
+            console.log(`Welcome, ${user.email}!`)
         }).catch((err)=> done(err,false))
     }).catch((err)=> done(err,false))
 }))
