@@ -1,29 +1,37 @@
 import validator from "validator";
-import user from "../models/user.js";
+import User from "../models/user.js";
 import bcrypt from "bcrypt"
+import passport from "passport";
+
 
 const authControllers ={
 
-    Register:(req,res)=>{
+    register:(req,res)=>{
         const errors = []
 
-        const {email,password, confirmPassword} = req.body; 
+        const {email,password, confirmpassword} = req.body; 
 
-        if(!email||!password||!confirmPassword)
+
+
+        if(!email||!password||!confirmpassword)
             errors.push({err:"Invalid form"});
-            if(password!== confirmPassword)
-            errors.push({err:"Passwords do not match"}); 
+            if(password != confirmpassword)
+                errors.push({err:"Passwords do not match"}); 
+
             if(!validator.isEmail(email))
-            errors.push({err:"Invalid email"});
+                 errors.push({err:"Invalid email"});
 
+            
 
-    user.findOne({email}).then((user) => {
+    User.findOne({email}).then((user) => {
         if(user){
             errors.push({err:"Email already registered"});
         }
         if(errors.length){
             req.flash('error',errors)
+            console.log(errors)
             return res.redirect('/register')
+            
         }
 
 
@@ -34,43 +42,33 @@ const authControllers ={
                 bcrypt
                 .hash(password,salt)
                 .then((hash)=>{
+                   
 
-
+                    console.log(email, password, hash)
         // all good? you can create that user here
-                user.create({email, password:
-                hash})
+         User.create({email, 
+                    password: hash
+                })
                     .then((user)=>res.status(200)
-                    .json({user}))
+                    .json({user})) 
                     .catch((err)=>res.status(500)
-                    .json({err:err.message}));
+                    .json({err:err.message}))
+                   
                 })
                 .catch((err)=>res.status(500)
-                .json({err:err.message}))
+                .json({err:err.message})) 
+               
             })
             .catch((err)=>res.status(500)
                 .json({err:err.message}))
+                
     });
+   
     },
 
-    LogIn: (req,res)=>{
-        const {email,password} = req.body
-        if(!email || !password)
-        return res.status(400).json({err:"Invalid form"});
-        if(!validator.isEmail(email))
-        return res.status(400).json({err:"Invalid email"})
-
-        user.findOne({email}).then(user =>{
-            if(!user) return res.status(400).json({
-                err: "Email not registered"});
-
-        bcrypt.compare(password,user.password)
-        .then(isMatch => {
-            if(!isMatch)
-                return res.sendStatus(401)
-        })
-        })
+    
     }
-}
+
 
 
 

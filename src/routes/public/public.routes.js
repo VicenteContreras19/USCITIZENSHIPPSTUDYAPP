@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 const router = Router()
 
 router.get('/', (req,res)=>{
@@ -21,5 +20,6 @@ router.get('/about',(req,res)=>{
 router.get('/curriculum',(req,res)=>{
     res.render('public/curriculum')
 })
+
 
 export default router
