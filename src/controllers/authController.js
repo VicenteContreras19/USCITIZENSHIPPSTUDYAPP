@@ -49,8 +49,13 @@ const authControllers ={
          User.create({email, 
                     password: hash
                 })
-                    .then((user)=>res.status(200)
-                    .json({user})) 
+                    .then((user)=> {
+                        console.log(user);
+                        req.flash("Success!", "Please sign in.");
+                        res.redirect('/signIn');
+                        
+
+                    })
                     .catch((err)=>res.status(500)
                     .json({err:err.message}))
                    

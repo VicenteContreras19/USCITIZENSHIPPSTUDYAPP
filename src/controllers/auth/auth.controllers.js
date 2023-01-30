@@ -1,6 +1,7 @@
 import passport from "passport";
 
 
+
 const controller = {
     login: (req, res, next) => {
 passport.authenticate("local", (err, user, info) => {
