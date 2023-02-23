@@ -1026,4 +1026,4 @@ const questions =
   }
 ]
 
-console.log(questions)
+export default questions

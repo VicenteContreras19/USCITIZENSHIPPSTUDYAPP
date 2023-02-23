@@ -1,7 +1,7 @@
 import validator from "validator";
 import User from "../models/user.js";
 import bcrypt from "bcrypt"
-import passport from "passport";
+
 
 
 const authControllers ={

@@ -10,7 +10,7 @@ const userSchema = new Schema({
         
         americanGovernment:{
             A:{
-            type: String,
+            type: String,   
             default:'0'
             },
             B:{
